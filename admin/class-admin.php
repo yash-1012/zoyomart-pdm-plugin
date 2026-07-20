@@ -14,15 +14,15 @@ class Zoyomart_PDM_Admin {
 
 	public function register_menu() {
 
-		add_menu_page(
-			'Zoyomart Product Importer',
-			'Zoyomart',
-			'manage_options',
-			'zoyomart-pdm',
-			array( $this, 'dashboard_page' ),
-			'dashicons-database-import',
-			56
-		);
+	add_menu_page(
+        'Product Importer',
+        'Product Importer',
+        'manage_options',
+        'zoyomart-pdm',
+        array( $this, 'dashboard_page' ),
+        'dashicons-database-import',
+        56
+    );
 
 		add_submenu_page(
 			'zoyomart-pdm',
