@@ -44,11 +44,13 @@ if ( file_exists( ZOYOMART_PDM_PLUGIN_PATH . 'vendor/autoload.php' ) ) {
 if ( is_admin() ) {
     require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/class-admin.php';
     require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/class-import.php';
+    require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/class-import-profiles.php';
     require_once ZOYOMART_PDM_PLUGIN_PATH . 'includes/class-product-importer.php';
 
     add_action( 'plugins_loaded', function () {
         new Zoyomart_PDM_Admin();
         new Zoyomart_PDM_Import();
+        new Zoyomart_PDM_Import_Profiles_Admin();
     } );
 
 }

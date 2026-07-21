@@ -44,6 +44,15 @@ class Zoyomart_PDM_Admin {
 
 		add_submenu_page(
 			'zoyomart-pdm',
+			'Import Profiles',
+			'Import Profiles',
+			'manage_options',
+			'zoyomart-import-profiles',
+			array( $this, 'import_profiles_page' )
+		);
+
+		add_submenu_page(
+			'zoyomart-pdm',
 			'Import Logs',
 			'Import Logs',
 			'manage_options',
@@ -70,6 +79,12 @@ class Zoyomart_PDM_Admin {
 	public function import_products_page() {
 
 		require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/views/import-products.php';
+
+	}
+
+	public function import_profiles_page() {
+
+		require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/views/import-profiles.php';
 
 	}
 
