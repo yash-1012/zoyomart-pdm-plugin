@@ -42,11 +42,9 @@ if ( file_exists( ZOYOMART_PDM_PLUGIN_PATH . 'vendor/autoload.php' ) ) {
 */
 
 if ( is_admin() ) {
-
-    error_log( 'Loading Product Importer admin...' );
-
     require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/class-admin.php';
     require_once ZOYOMART_PDM_PLUGIN_PATH . 'admin/class-import.php';
+    require_once ZOYOMART_PDM_PLUGIN_PATH . 'includes/class-product-importer.php';
 
     add_action( 'plugins_loaded', function () {
         new Zoyomart_PDM_Admin();

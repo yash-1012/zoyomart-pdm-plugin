@@ -1,6 +1,7 @@
 <?php
 
-$preview = get_transient( 'zoyomart_excel_preview' );
+$notice = get_transient( 'zoyomart_import_notice_' . get_current_user_id() );
+delete_transient( 'zoyomart_import_notice_' . get_current_user_id() );
 
 ?>
 
@@ -8,7 +9,25 @@ $preview = get_transient( 'zoyomart_excel_preview' );
 
     <h1>Product Importer</h1>
 
+    <?php if ( ! empty( $notice['error'] ) ) : ?>
+        <div class="notice notice-error"><p><?php echo esc_html( $notice['error'] ); ?></p></div>
+    <?php elseif ( is_array( $notice ) ) : ?>
+        <div class="notice notice-success"><p>
+            <?php
+            printf(
+                esc_html__( 'Import complete: %1$d created, %2$d updated, %3$d skipped, %4$d failed.', 'zoyomart-product-importer' ),
+                (int) $notice['created'],
+                (int) $notice['updated'],
+                (int) $notice['skipped'],
+                (int) $notice['failed']
+            );
+            ?>
+        </p></div>
+    <?php endif; ?>
+
     <form method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="action" value="zoyomart_import_products">
 
         <?php wp_nonce_field(
             'zoyomart_upload_excel',
@@ -35,50 +54,8 @@ $preview = get_transient( 'zoyomart_excel_preview' );
 
         </table>
 
-        <?php submit_button( 'Upload & Preview' ); ?>
+        <?php submit_button( 'Import Products' ); ?>
 
     </form>
-
-    <?php if ( ! empty( $preview ) ) : ?>
-
-        <hr>
-
-        <h2>Excel Preview</h2>
-
-        <p>
-
-            <strong>Total Rows:</strong>
-
-            <?php echo count( $preview ); ?>
-
-        </p>
-
-        <table class="widefat striped">
-
-            <?php
-
-            foreach ( array_slice( $preview, 0, 10 ) as $row ) :
-
-                ?>
-
-                <tr>
-
-                    <?php foreach ( $row as $cell ) : ?>
-
-                        <td>
-
-                            <?php echo esc_html( $cell ); ?>
-
-                        </td>
-
-                    <?php endforeach; ?>
-
-                </tr>
-
-            <?php endforeach; ?>
-
-        </table>
-
-    <?php endif; ?>
 
 </div>
